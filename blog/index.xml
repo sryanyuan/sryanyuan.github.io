@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blogs on Let&#39;s go code, sryan&#39;s home</title>
+    <link>http://gocode.cc/blog/</link>
+    <description>Recent content in Blogs on Let&#39;s go code, sryan&#39;s home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 May 2016 11:19:31 +0800</lastBuildDate>
+    <atom:link href="http://gocode.cc/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>在这儿的第一篇博文，安家啦</title>
+      <link>http://gocode.cc/blog/my-first-blog/</link>
+      <pubDate>Sun, 08 May 2016 11:19:31 +0800</pubDate>
+      
+      <guid>http://gocode.cc/blog/my-first-blog/</guid>
+      <description>&lt;p&gt;终于差不多搭好了，真是曲折。
+首先自己想做一个博客，但是无奈前端知识有限，用Go写了会，放弃了。后来发现Openresty这个东西，用Lua写着貌似更加爽，可是貌似比Go还麻烦，于是又放弃了。&lt;/p&gt;
+
+&lt;p&gt;后来仔细想想，一个静态的博客就够了，于是找到了Gor这个生成器，搭了一个简单的网站，方便是方便，可是主题有限，感觉不好看。&lt;/p&gt;
+
+&lt;p&gt;其余主流的还要装Ruby之类的，感觉还是有点儿麻烦，于是还是准备找Go的静态博客生成器，于是发现了Hogo。&lt;/p&gt;
+
+&lt;p&gt;于是这个页面就是找了个主题改改用Hugo生成的，感觉还不错。
+那么我就在这里安家啦。&lt;/p&gt;
+
+&lt;p&gt;还顺手买了个域名，gocode.cc，cc域名便宜呀！5年才花了100块钱 ：）&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
