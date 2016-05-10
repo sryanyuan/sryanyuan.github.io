@@ -1,19 +1,11 @@
-
-
-    
-
-
-    
-
-
-
-
 <!DOCTYPE HTML>
 
 <html>
     <head>
         
-            <title>Blog - Let&#39;s go code, sryan&#39;s home</title>
+            
+                <title>Dll链接静态库的坑(LuaSQL fetch崩溃)</title>
+            
         
 
         <meta charset="utf-8" />
@@ -24,16 +16,24 @@
 
         
         
-            
-                <meta name="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
-            
+            <meta name="description" content="好大一个坑">
         
 
         
-        <meta property="og:title" content="Blogs" />
-<meta property="og:description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://gocode.cc/blog/" />
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Dll链接静态库的坑(LuaSQL fetch崩溃)"/>
+<meta name="twitter:description" content="好大一个坑"/>
+
+
+
+        <meta property="og:title" content="Dll链接静态库的坑(LuaSQL fetch崩溃)" />
+<meta property="og:description" content="好大一个坑" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/" />
 
 
 <meta property="og:updated_time" content="2016-05-10T19:57:15&#43;08:00"/>
@@ -46,10 +46,18 @@
 
 
 
-        
-<meta itemprop="name" content="Blogs">
-<meta itemprop="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
 
+        
+<meta itemprop="name" content="Dll链接静态库的坑(LuaSQL fetch崩溃)">
+<meta itemprop="description" content="好大一个坑">
+
+
+<meta itemprop="dateModified" content="2016-05-10T19:57:15&#43;08:00" />
+<meta itemprop="wordCount" content="13">
+
+
+
+<meta itemprop="keywords" content="c/c&#43;&#43;,生活点滴," />
 
         
 
@@ -83,6 +91,7 @@
         <div id="wrapper">
 
     
+    
 <header id="header">
     
         <h2><a href="/">Go code</i></a></h2>
@@ -114,6 +123,10 @@
     </nav>
     <nav class="main">
         <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
             
             <li class="search">
                 <a class="fa-search" href="#search">Search</a>
@@ -202,19 +215,70 @@
         
 </section>
 
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&text=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
     
     <div id="main">
         
         
-            
-        
-
-        
-            <article class="post">
+        <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></h2>
+            <h1><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></h1>
+            
         
         
             <p>好大一个坑</p>
@@ -236,6 +300,55 @@
     </div>
 </header>
 
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&text=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f&title=Dll%e9%93%be%e6%8e%a5%e9%9d%99%e6%80%81%e5%ba%93%e7%9a%84%e5%9d%91%28LuaSQL%20fetch%e5%b4%a9%e6%ba%83%29" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2flib-and-dll-link-problem%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
     
     
 
@@ -260,12 +373,35 @@
     
 
 
-    <p>踩到一个大坑 这几天在做我们数据中间件的自动化测试工具，我选择了Lua来做testcase的脚本。前一段日子有个需求，就是windows下全部使用静态库，代码生成全部使用/MT，免得依赖VC的运行时库。 所以我在开工测试工具的时候，也想这么搞，之前lua的协程调度、唤醒功能也都实现OK了，感觉没啥问题了，于是今天开始嵌入LuaSQL来做SQL的接口，于是问题来了。 采用默认的方式编译LuaSQL，当然链接的是Lua的静态库，编译出来的是Lua可以require的Dll。然后基本的使用是没问题的，然而当执行到select语句返回的结果集后，采用内置的cursor:fetch({}, &ldquo;a&rdquo;)就崩了，因为是开源的，所以果断断点调试，发现每次执行lua_rawset就崩了。 这是相当奇怪的一个错误，于是我在程序中写了个函数，处理lua传入的table参数，再次执行rawset，毫无问题。但是在LuaSQL模块中，每次操作lua脚本传入的table，执行rawset，必挂。于是我基本一下午都掉进这个坑里了。 网上貌似也有遇到这个情况的，但是他绕过了，采用了fetch()传空参数的方法来返回每列的结果。这没有从根本上解决问题，于是发现每次执行到某个指针变量和某个全局的静态变量比较的时候，比较出了问题，于是下面的逻辑就乱了，也就崩溃了。 一个劲儿的调试也不是出路。于是仔细思考了下，突然发现程序是静态链接的lua，而luasql也是静态链接的lua，而exe模块和dll模块最大的忌讳就是共享全局变量！因为exe中会有一份静态链接库的代码导入，而dll也会有，这就造成了exe和dll都有一份代码拷贝，而在exe中执行的lua函数均是exe模块里面的，而dll中则是dll模块中的lua模块，然而我exe中执行的脚本生成的table，放到了dll模块中的lua模块进行操作，很有可能会出现问题。 所以必须记住，对于dll和exe共享的模块，尽量动态链接，这样exe和dll执行后都会引用到对应的dll模块，不会产生多份代码拷贝，因为dll载入后有自己的内存空间等，和exe模块其实不属于一个模块。同时还有个题外话，就是dll中malloc/new出来的指针，必须在dll中导出对应的函数进行free/delete，这也是exe和dll中c库在执行释放操作的时候，由于模块不同，会导致无法释放对应指针，当然假如使用的是/MD选项的话，则不存在这个问题。 有朋友总结了一句话 一个模块一个堆，一个线程一个栈。 dll里malloc的内存，在exe里free会出错。 总之，上述的问题，也是不同模块不同的代码副本造成的，不同模块引用了不同的全局变量，当然会出错啦。</p>
+    <div id="content">
+        
+
+<h2 id="踩到一个大坑:0cf863c2eef47ef400d1b952311cfe50">踩到一个大坑</h2>
+
+<p>　这几天在做我们数据中间件的自动化测试工具，我选择了Lua来做testcase的脚本。前一段日子有个需求，就是windows下全部使用静态库，代码生成全部使用/MT，免得依赖VC的运行时库。</p>
+
+<p>　所以我在开工测试工具的时候，也想这么搞，之前lua的协程调度、唤醒功能也都实现OK了，感觉没啥问题了，于是今天开始嵌入LuaSQL来做SQL的接口，于是问题来了。</p>
+
+<p>　采用默认的方式编译LuaSQL，当然链接的是Lua的静态库，编译出来的是Lua可以require的Dll。然后基本的使用是没问题的，然而当执行到select语句返回的结果集后，采用内置的cursor:fetch({}, &ldquo;a&rdquo;)就崩了，因为是开源的，所以果断断点调试，发现每次执行lua_rawset就崩了。</p>
+
+<p>　这是相当奇怪的一个错误，于是我在程序中写了个函数，处理lua传入的table参数，再次执行rawset，毫无问题。但是在LuaSQL模块中，每次操作lua脚本传入的table，执行rawset，必挂。于是我基本一下午都掉进这个坑里了。</p>
+
+<p>　网上貌似也有遇到这个情况的，但是他绕过了，采用了fetch()传空参数的方法来返回每列的结果。这没有从根本上解决问题，于是发现每次执行到某个指针变量和某个全局的静态变量比较的时候，比较出了问题，于是下面的逻辑就乱了，也就崩溃了。</p>
+
+<p>　一个劲儿的调试也不是出路。于是仔细思考了下，突然发现程序是静态链接的lua，而luasql也是静态链接的lua，而exe模块和dll模块最大的忌讳就是共享全局变量！因为exe中会有一份静态链接库的代码导入，而dll也会有，这就造成了exe和dll都有一份代码拷贝，而在exe中执行的lua函数均是exe模块里面的，而dll中则是dll模块中的lua模块，然而我exe中执行的脚本生成的table，放到了dll模块中的lua模块进行操作，很有可能会出现问题。</p>
+
+<p>　所以必须记住，对于dll和exe共享的模块，尽量动态链接，这样exe和dll执行后都会引用到对应的dll模块，不会产生多份代码拷贝，因为dll载入后有自己的内存空间等，和exe模块其实不属于一个模块。同时还有个题外话，就是dll中malloc/new出来的指针，必须在dll中导出对应的函数进行free/delete，这也是exe和dll中c库在执行释放操作的时候，由于模块不同，会导致无法释放对应指针，当然假如使用的是/MD选项的话，则不存在这个问题。</p>
+
+<p>　有朋友总结了一句话</p>
+
+<p>　<strong>一个模块一个堆，一个线程一个栈。
+dll里malloc的内存，在exe里free会出错。</strong></p>
+
+<p>　总之，上述的问题，也是不同模块不同的代码副本造成的，不同模块引用了不同的全局变量，当然会出错啦。</p>
+
+    </div>
 
     <footer>
-        <ul class="actions">
-            <li><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/" class="button big">Continue Reading</a></li>
-        </ul>
         <ul class="stats">
     
         
@@ -293,105 +429,22 @@
 
     </footer>
 </article>
-
-        
-            <article class="post">
-    <header>
-    <div class="title">
-        
-            <h2><a href="http://gocode.cc/blog/my-first-blog/">在这儿的第一篇博文，安家啦</a></h2>
-        
-        
-            <p>弄了好久呢</p>
-        
-    </div>
-    <div class="meta">
-        
-            
-        
-
-        <time class="published"
-            datetime='2016-05-08 11:19:31'>
-            2016-05-08 11:19:31</time>
-        <span class="author">sryanyuan</span>
-        
-            <p>1 MINUTE READ</p>
-        
-        
-    </div>
-</header>
-
-    
-    
-
-    
-        
-        
-
-
-
-
-    
-    
-        
-    
-
-
-        
-
-        <a href="http://gocode.cc/blog/my-first-blog/" class="image featured">
-            <img src="/img/2016/05/pic01.jpg" alt="" />
-        </a>
-    
-
-
-    <p>终于差不多搭好了，真是曲折。 首先自己想做一个博客，但是无奈前端知识有限，用Go写了会，放弃了。后来发现Openresty这个东西，用Lua写着貌似更加爽，可是貌似比Go还麻烦，于是又放弃了。 后来仔细想想，一个静态的博客就够了，于是找到了Gor这个生成器，搭了一个简单的网站，方便是方便，可是主题有限，感觉不好看。 其余主流的还要装Ruby之类的，感觉还是有点儿麻烦，于是还是准备找Go的静态博客生成器，于是发现了Hogo。 于是这个页面就是找了个主题改改用Hugo生成的，感觉还不错。 那么我就在这里安家啦。 还顺手买了个域名，gocode.cc，cc域名便宜呀！5年才花了100块钱 ：）</p>
-
-    <footer>
-        <ul class="actions">
-            <li><a href="http://gocode.cc/blog/my-first-blog/" class="button big">Continue Reading</a></li>
-        </ul>
-        <ul class="stats">
-    
-        
-
-        
-        
-            <li>
-                
-                
-                    
-
-                    
-                        Category
-                    
-                
-            </li>
-        
-    
-
-    
-    
-        <li><a href='/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4'>生活点滴</a></li>
-    
-</ul>
-
-    </footer>
-</article>
-
-        
-
-        
 <ul class="actions pagination">
     
-        <li><a href="#" class="disabled button big previous">Previous Page</a></li>
+        <li><a href="http://gocode.cc/blog/my-first-blog/"
+                class="button big previous">在这儿的第一篇博文，安家啦</a></li>
     
 
-    
-        <li><a href="#" class="disabled button big next">Next Page</a></li>
     
 </ul>
 
+
+
+<article class="post">
+	<section id="comments" class="themeform">
+ <div class="ds-thread" data-thread-key="/blog/2016/05/lib-and-dll-link-problem/" data-title="Dll链接静态库的坑(LuaSQL fetch崩溃)" data-url="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/"></div>   <script type="text/javascript"> var duoshuoQuery = {short_name:"sryanyuan"}; (function() { var ds = document.createElement('script'); ds.type = 'text/javascript';ds.async = true; ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js'; ds.charset = 'UTF-8'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds); })(); </script>  
+</section>
+</article>
     </div>
     
 <section id="sidebar">
@@ -411,9 +464,6 @@
                 </header>
             
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/blog/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
@@ -588,9 +638,6 @@
     
         <section id="footer">
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/blog/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
