@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Let&#39;s go code, sryan&#39;s home</title>
-    <link>http://gocode.cc/</link>
-    <description>Recent content on Let&#39;s go code, sryan&#39;s home</description>
+    <title>Go on Let&#39;s go code, sryan&#39;s home</title>
+    <link>http://gocode.cc/categories/go/</link>
+    <description>Recent content in Go on Let&#39;s go code, sryan&#39;s home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 27 May 2016 17:12:51 +0800</lastBuildDate>
-    <atom:link href="http://gocode.cc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://gocode.cc/categories/go/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>用Go写一个简单的TCP server or client 模型</title>
@@ -547,120 +547,6 @@ func main() {
 &lt;p&gt;我们其实已经实现了一个简单的tcp封装了，支持server/client连接，至于其中心跳的细节、封包解包的细节等等，这里就不多介绍了，可以通过阅读源码来理解。&lt;/p&gt;
 
 &lt;p&gt;该封装可以见我的Github &lt;a href=&#34;https://github.com/sryanyuan/tcpnetwork&#34;&gt;TCPNetwork&lt;/a&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>将__LINE__宏格式化成字符串常量类型</title>
-      <link>http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/</link>
-      <pubDate>Fri, 27 May 2016 15:52:05 +0800</pubDate>
-      
-      <guid>http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/</guid>
-      <description>&lt;p&gt;##使用宏的方式来格式化行号&lt;/p&gt;
-
-&lt;p&gt;我们已经知道，我们可以使用&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;__LINE__ 获得当前的行号
-__FILE__ 获得当前的文件名
-__FUNCTION__ 获得当前的函数名
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;这些在打印日志的时候十分常用，所以在打印日志的时候我们常常需要序列化这些东西，然而序列化这些信息，特别是行号是整型，是有点儿消耗的。&lt;/p&gt;
-
-&lt;p&gt;今天偶然发现了将行号直接格式化成字符串常量的方法，下面贴代码。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#define STRINGIFY(x) #x
-#define TOSTRING(x) STRINGIFY(x)
-#define __LINESTR__ TOSTRING(__LINE__)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;使用这些代码即可将行号格式化成字符串。为了更好的使用，我们可以格式化更加复杂的信息，将文件行号和函数一起格式化成常量。（vc支持，gcc编译器不支持）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;#define __WHERE__ __FILE__&amp;quot;:&amp;quot;__LINESTR__&amp;quot; &amp;quot;__FILE__
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;gcc编译器不支持，因为gcc在拼接字符串的时候，结果必须是已定义的常量，比如文件，行号，字符串常量等，vc没问题。这样日志获得相信文件信息只需要使用上面的宏就可以了。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Dll链接静态库的坑(LuaSQL fetch崩溃)</title>
-      <link>http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/</link>
-      <pubDate>Tue, 10 May 2016 19:57:15 +0800</pubDate>
-      
-      <guid>http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/</guid>
-      <description>
-
-&lt;h2 id=&#34;踩到一个大坑:0cf863c2eef47ef400d1b952311cfe50&#34;&gt;踩到一个大坑&lt;/h2&gt;
-
-&lt;p&gt;　这几天在做我们数据中间件的自动化测试工具，我选择了Lua来做testcase的脚本。前一段日子有个需求，就是windows下全部使用静态库，代码生成全部使用/MT，免得依赖VC的运行时库。&lt;/p&gt;
-
-&lt;p&gt;　所以我在开工测试工具的时候，也想这么搞，之前lua的协程调度、唤醒功能也都实现OK了，感觉没啥问题了，于是今天开始嵌入LuaSQL来做SQL的接口，于是问题来了。&lt;/p&gt;
-
-&lt;p&gt;　采用默认的方式编译LuaSQL，当然链接的是Lua的静态库，编译出来的是Lua可以require的Dll。然后基本的使用是没问题的，然而当执行到select语句返回的结果集后，采用内置的cursor:fetch({}, &amp;ldquo;a&amp;rdquo;)就崩了，因为是开源的，所以果断断点调试，发现每次执行lua_rawset就崩了。&lt;/p&gt;
-
-&lt;p&gt;　这是相当奇怪的一个错误，于是我在程序中写了个函数，处理lua传入的table参数，再次执行rawset，毫无问题。但是在LuaSQL模块中，每次操作lua脚本传入的table，执行rawset，必挂。于是我基本一下午都掉进这个坑里了。&lt;/p&gt;
-
-&lt;p&gt;　网上貌似也有遇到这个情况的，但是他绕过了，采用了fetch()传空参数的方法来返回每列的结果。这没有从根本上解决问题，于是发现每次执行到某个指针变量和某个全局的静态变量比较的时候，比较出了问题，于是下面的逻辑就乱了，也就崩溃了。&lt;/p&gt;
-
-&lt;p&gt;　一个劲儿的调试也不是出路。于是仔细思考了下，突然发现程序是静态链接的lua，而luasql也是静态链接的lua，而exe模块和dll模块最大的忌讳就是共享全局变量！因为exe中会有一份静态链接库的代码导入，而dll也会有，这就造成了exe和dll都有一份代码拷贝，而在exe中执行的lua函数均是exe模块里面的，而dll中则是dll模块中的lua模块，然而我exe中执行的脚本生成的table，放到了dll模块中的lua模块进行操作，很有可能会出现问题。&lt;/p&gt;
-
-&lt;p&gt;　所以必须记住，对于dll和exe共享的模块，尽量动态链接，这样exe和dll执行后都会引用到对应的dll模块，不会产生多份代码拷贝，因为dll载入后有自己的内存空间等，和exe模块其实不属于一个模块。同时还有个题外话，就是dll中malloc/new出来的指针，必须在dll中导出对应的函数进行free/delete，这也是exe和dll中c库在执行释放操作的时候，由于模块不同，会导致无法释放对应指针，当然假如使用的是/MD选项的话，则不存在这个问题。&lt;/p&gt;
-
-&lt;p&gt;　有朋友总结了一句话&lt;/p&gt;
-
-&lt;p&gt;　&lt;strong&gt;一个模块一个堆，一个线程一个栈。
-dll里malloc的内存，在exe里free会出错。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;　总之，上述的问题，也是不同模块不同的代码副本造成的，不同模块引用了不同的全局变量，当然会出错啦。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>在这儿的第一篇博文，安家啦</title>
-      <link>http://gocode.cc/blog/my-first-blog/</link>
-      <pubDate>Sun, 08 May 2016 11:19:31 +0800</pubDate>
-      
-      <guid>http://gocode.cc/blog/my-first-blog/</guid>
-      <description>&lt;p&gt;终于差不多搭好了，真是曲折。
-首先自己想做一个博客，但是无奈前端知识有限，用Go写了会，放弃了。后来发现Openresty这个东西，用Lua写着貌似更加爽，可是貌似比Go还麻烦，于是又放弃了。&lt;/p&gt;
-
-&lt;p&gt;后来仔细想想，一个静态的博客就够了，于是找到了Gor这个生成器，搭了一个简单的网站，方便是方便，可是主题有限，感觉不好看。&lt;/p&gt;
-
-&lt;p&gt;其余主流的还要装Ruby之类的，感觉还是有点儿麻烦，于是还是准备找Go的静态博客生成器，于是发现了Hogo。&lt;/p&gt;
-
-&lt;p&gt;于是这个页面就是找了个主题改改用Hugo生成的，感觉还不错。
-那么我就在这里安家啦。&lt;/p&gt;
-
-&lt;p&gt;还顺手买了个域名，gocode.cc，cc域名便宜呀！5年才花了100块钱 ：）&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>sryan</title>
-      <link>http://gocode.cc/about/</link>
-      <pubDate>Sun, 08 May 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://gocode.cc/about/</guid>
-      <description>
-
-&lt;p&gt;欢迎来到我的博客。&lt;/p&gt;
-
-&lt;h2 id=&#34;关于我:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;关于我&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;程序猿&lt;/li&gt;
-&lt;li&gt;单身狗&lt;/li&gt;
-&lt;li&gt;90后&lt;/li&gt;
-&lt;li&gt;爱推理小说&lt;/li&gt;
-&lt;li&gt;不知道写什么了。。。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;关于本博客:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;关于本博客&lt;/h2&gt;
-
-&lt;p&gt;本博客由 &lt;a href=&#34;https://github.com/spf13/hugo&#34;&gt;Hugo&lt;/a&gt; 生成，主题采用了 &lt;a href=&#34;https://github.com/jpescador/hugo-future-imperfect&#34;&gt;Hugo-future-imperfect&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Hugo是一个由Golang编写的很棒的静态博客工具，Thanks&lt;/p&gt;
 </description>
     </item>
     

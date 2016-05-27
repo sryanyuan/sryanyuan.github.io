@@ -13,7 +13,7 @@
 <html>
     <head>
         
-            <title>Cpp Posts - Let&#39;s go code, sryan&#39;s home</title>
+            <title>Go Posts - Let&#39;s go code, sryan&#39;s home</title>
         
 
         <meta charset="utf-8" />
@@ -30,13 +30,13 @@
         
 
         
-        <meta property="og:title" content="Cpp" />
+        <meta property="og:title" content="Go" />
 <meta property="og:description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://gocode.cc/categories/cpp/" />
+<meta property="og:url" content="http://gocode.cc/categories/go/" />
 
 
-<meta property="og:updated_time" content="2016-05-27T15:52:05&#43;08:00"/>
+<meta property="og:updated_time" content="2016-05-27T17:12:51&#43;08:00"/>
 
 
 
@@ -47,7 +47,7 @@
 
 
         
-<meta itemprop="name" content="Cpp">
+<meta itemprop="name" content="Go">
 <meta itemprop="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
 
 
@@ -204,17 +204,15 @@
 
     
     <div id="main">
-        <h1>Cpp</h1>
+        <h1>Go</h1>
         
         
             <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/">将__LINE__宏格式化成字符串常量类型</a></h2>
+            <h2><a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/">用Go写一个简单的TCP server or client 模型</a></h2>
         
-        
-            <p>宏的使用</p>
         
     </div>
     <div class="meta">
@@ -223,45 +221,23 @@
         
 
         <time class="published"
-            datetime='2016-05-27 15:52:05'>
-            2016-05-27 15:52:05</time>
+            datetime='2016-05-27 17:12:51'>
+            2016-05-27 17:12:51</time>
         <span class="author"></span>
         
-            <p>1 MINUTE READ</p>
+            <p>6 MINUTE READ</p>
         
         
     </div>
 </header>
 
     
-    
 
-    
-        
-        
-
-
-
-
-    
-    
-        
-    
-
-
-        
-
-        <a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" class="image featured">
-            <img src="/img/2016/05/" alt="" />
-        </a>
-    
-
-
-    <p>##使用宏的方式来格式化行号 我们已经知道，我们可以使用 <strong>LINE</strong> 获得当前的行号 <strong>FILE</strong> 获得当前的文件名 <strong>FUNCTION</strong> 获得当前的函数名 这些在打印日志的时候十分常用，所以在打印日志的时候我们常常需要序列化这些东西，然而序列化这些信息，特别是行号是整型，是有点儿消耗的。 今天偶然发现了将行号直接格式化成字符串常量的方法，下面贴代码。 #define STRINGIFY(x) #x #define TOSTRING(x) STRINGIFY(x) #define <strong>LINESTR</strong> TOSTRING(<strong>LINE</strong>) 使用这些代码即可将行号格式化成字符串。为了更好的使用，我们可以格式化更加复杂的信息，将文件行号和函数一起格式化成常量。（vc支持，gcc编译器不支持） #define <strong>WHERE</strong> <strong>FILE</strong>&quot;:&quot;<strong>LINESTR</strong>&quot; &quot;<strong>FILE</strong> gcc编译器不支持，因为gcc在拼接字符串的时候，结果必须是已定义的常量，比如文件，行号，字符串常量等，vc没问题。这样日志获得相信文件信息只需要使用上面的宏就可以了。</p>
+    <p>##用Go写一个简单的TCP server or client 模型 ###对Conn封装的基本思路 go内置了net包已经很好的封装了socket通讯。然而在实际使用中，由于net/Conn的Read/Write方法是堵塞的原因，必须将其放入单独的goroutine中进行处理。 我们先简单的整理下思路，对于连接(Conn)的处理，我们可以开启2条goroutine进行处理，一条用于堵塞的Read的处理，另一条进行Write的处理。 这里必须指出，其实Write本身就是线程安全的，也就是我们在别的任何地方都可以进行Write，但是Write是堵塞的，所以考虑到这点，我们还是将其放入一个单独的goroutine中进行处理。 这样设计的原因在于Conn是支持同时Read/Write的，这样我们的基本的Conn的模型就成型了。对于服务端或者客户端而言，我们只需要封装对应过来的Conn即可，Conn的读写goroutine进行处理，并将获得的事件抛向外部。 那么我们就按这个思路来实现一个简单的Connection封装，该封装支持线程安全的写，并且支持解包操作。 package tcpnetwork import ( &quot;errors&quot; &quot;log&quot; &quot;net&quot; &quot;time&quot; ) const ( kConnStatus_None = iota kConnStatus_Connected kConnStatus_Disconnected ) const ( kConnEvent_None = iota kConnEvent_Connected kConnEvent_Disconnected kConnEvent_Data kConnEvent_Close ) const ( kConnConf_DefaultSendTimeoutSec = 5 kConnConf_MaxReadBufferLength = 0xffff // 0xffff ) type Connection struct { conn net.Conn status int connId int sendMsgQueue chan []byte sendTimeoutSec int eventQueue IEventQueue streamProtocol IStreamProtocol maxReadBufferLength int userdata interface{} from int readTimeoutSec int } func newConnection(c net.Conn, sendBufferSize int, eq IEventQueue) *Connection { return &amp;Connection{ conn: c, status: kConnStatus_None, connId: 0, sendMsgQueue: make(chan []byte, sendBufferSize), sendTimeoutSec: kConnConf_DefaultSendTimeoutSec, maxReadBufferLength: kConnConf_MaxReadBufferLength, eventQueue: eq, } } type ConnEvent struct { EventType int Conn *Connection Data []byte } func newConnEvent(et int, c *Connection, d []byte) *ConnEvent { return &amp;ConnEvent{ EventType: et, Conn: c, Data: d, } } // directly close, packages in queue will not be sent func (this *Connection) close() { if kConnStatus_Connected != this.status { return } this.conn.Close() this.status = kConnStatus_Disconnected } func (this *Connection) Close() { if this.status != kConnStatus_Connected { return } select { case this.sendMsgQueue &lt;- nil: { // nothing } case &lt;-time.After(time.Duration(this.sendTimeoutSec)): { // timeout, close the connection this.close() log.Printf(&quot;Con[%d] send message timeout, close it&quot;, this.connId) } } } func (this *Connection) pushEvent(et int, d []byte) { if nil == this.eventQueue { log.Println(&quot;Nil event queue&quot;) return } this.eventQueue.Push(newConnEvent(et, this, d)) } func (this *Connection) GetStatus() int { return this.status } func (this *Connection) setStatus(stat int) { this.status = stat } func (this *Connection) GetConnId() int { return this.connId } func (this *Connection) SetConnId(id int) { this.connId = id } func (this *Connection) GetUserdata() interface{} { return this.userdata } func (this *Connection) SetUserdata(ud interface{}) { this.userdata = ud } func (this *Connection) SetReadTimeoutSec(sec int) { this.readTimeoutSec = sec } func (this *Connection) GetReadTimeoutSec() int { return this.readTimeoutSec } func (this *Connection) setStreamProtocol(sp IStreamProtocol) { this.streamProtocol = sp } func (this *Connection) sendRaw(msg []byte) { if this.status != kConnStatus_Connected { return } select { case this.sendMsgQueue &lt;- msg: { // nothing } case &lt;-time.After(time.Duration(this.sendTimeoutSec)): { // timeout, close the connection this.close() log.Printf(&quot;Con[%d] send message timeout, close it&quot;, this.connId) } } } func (this *Connection) Send(msg []byte, cpy bool) { if this.status != kConnStatus_Connected { return } buf := msg if cpy { msgCopy := make([]byte, len(msg)) copy(msgCopy, msg) buf = msgCopy } select { case this.sendMsgQueue &lt;- buf: { // nothing } case &lt;-time.After(time.Duration(this.sendTimeoutSec)): { // timeout, close the connection this.close() log.Printf(&quot;Con[%d] send message timeout, close it&quot;, this.connId) } } } // run a routine to process the connection func (this *Connection) run() { go this.routineMain() } func (this *Connection) routineMain() { defer func() { // routine end log.Printf(&quot;Routine of connection[%d] quit&quot;, this.connId) e := recover() if e != nil { log.Println(&quot;Panic:&quot;, e) } // close the connection this.close() // free channel close(this.sendMsgQueue) this.sendMsgQueue = nil // post event this.pushEvent(kConnEvent_Disconnected, nil) }() if nil == this.streamProtocol { log.Println(&quot;Nil stream protocol&quot;) return } this.streamProtocol.Init() // connected this.pushEvent(kConnEvent_Connected, nil) this.status = kConnStatus_Connected go this.routineSend() this.routineRead() } func (this *Connection) routineSend() error { defer func() { log.Println(&quot;Connection&quot;, this.connId, &quot; send loop return&quot;) }() for { select { case evt, ok := &lt;-this.sendMsgQueue: { if !ok { // channel closed, quit return nil } if nil == evt { log.Println(&quot;User disconnect&quot;) this.close() return nil } var err error headerBytes := this.streamProtocol.SerializeHeader(evt) if nil != headerBytes { // write header first _, err = this.conn.Write(headerBytes) if err != nil { log.Println(&quot;Conn write error:&quot;, err) return err } } _, err = this.conn.Write(evt) if err != nil { log.Println(&quot;Conn write error:&quot;, err) return err } } } } return nil } func (this *Connection) routineRead() error { // default buffer buf := make([]byte, this.maxReadBufferLength) for { msg, err := this.unpack(buf) if err != nil { log.Println(&quot;Conn read error:&quot;, err) return err } this.pushEvent(kConnEvent_Data, msg) } return nil } func (this *Connection) unpack(buf []byte) ([]byte, error) { // read head if 0 != this.readTimeoutSec { this.conn.SetReadDeadline(time.Now().Add(time.Duration(this.readTimeoutSec) * time.Second)) } headBuf := buf[:this.streamProtocol.GetHeaderLength()] _, err := this.conn.Read(headBuf) if err != nil { return nil, err } // check length packetLength := this.streamProtocol.UnserializeHeader(headBuf) if packetLength &gt; this.maxReadBufferLength || 0 == packetLength { return nil, errors.New(&quot;The stream data is too long&quot;) } // read body if 0 != this.readTimeoutSec { this.conn.SetReadDeadline(time.Now().Add(time.Duration(this.readTimeoutSec) * time.Second)) } bodyLength := packetLength - this.streamProtocol.GetHeaderLength() _, err = this.conn.Read(buf[:bodyLength]) if err != nil { return nil, err } // ok msg := make([]byte, bodyLength) copy(msg, buf[:bodyLength]) if 0 != this.readTimeoutSec { this.conn.SetReadDeadline(time.Time{}) } return msg, nil } 这就是简单的Conn封装，在抛出事件这部，定义了一个interface来接收事件。 package tcpnetwork type IEventQueue interface { Push(*ConnEvent) Pop() *ConnEvent } type IStreamProtocol interface { // Init Init() // get the header length of the stream GetHeaderLength() int // read the header length of the stream UnserializeHeader([]byte) int // format header SerializeHeader([]byte) []byte } type IEventHandler interface { OnConnected(evt *ConnEvent) OnDisconnected(evt *ConnEvent) OnRecv(evt *ConnEvent) } 我们只要在实现对应的方法，就可以接收事件和读取事件了。 ###Server/Client 端的实现 ####Server 我们已经封装好了Conn，那么接下来的工作将会简单很多。我们来封装一个TCPNetwork的结构。 对于Server端来说，它基本的步骤就是 监听端口 开启accept线程 得到Conn，并生成Connection，开启Read/Write线程 第一步很简单，net包已封装 ls, err := net.Listen(&quot;tcp&quot;, addr) if nil != err { return err } // accept this.listener = ls go this.acceptRoutine() return nil 我们在listen成功后，开启了一个goroutine来不断的进行死循环来等待连接的接入。 func (this *TCPNetwork) acceptRoutine() { for { conn, err := this.listener.Accept() if err != nil { log.Println(&quot;accept routine quit.error:&quot;, err) return } // process conn event connection := this.createConn(conn) connection.SetReadTimeoutSec(this.readTimeoutSec) connection.from = 0 connection.run() } } 得到了Connection后，我们只需要让它的处理routine跑起来即可。然而我们需要对应的Connection抛过来的事件，于是我们在TCPNetwork中实现IEventQueue的2个方法，这样我们的TCPNetwork就可以接收对应的事件的抛入，也可以读取，大家读到这里也就知道了，最适合实现这个的就是golang的神器：channel。 我们来为TCPNetwork定义一个chan *ConnEvent，并实现接口的方法。 func (this *TCPNetwork) Push(evt *ConnEvent) { if nil == this.eventQueue { return } this.eventQueue &lt;- evt } func (this *TCPNetwork) Pop() *ConnEvent { evt, ok := &lt;-this.eventQueue if !ok { // event queue already closed this.eventQueue = nil return nil } return evt } 其实基本的逻辑已经完成了，对于我们来说，只需要关心eventQueue里的内容就行了，这就属于上层逻辑处理了。这样一个简单的TCPNetwork就封装好了。 ####Client Client端基本没什么好说的，net包Connect成功后会获得一个Conn，然后对于这个Conn的处理其实和Server端一样了。 func (this *TCPNetwork) Connect(addr string) error { conn, err := net.Dial(&quot;tcp&quot;, addr) if nil != err { return err } connection := this.createConn(conn) connection.from = 1 connection.run() return nil } ####使用方法 对于外部来说，使用很简单，这里贴上一个简单的echo server example.</p>
 
     <footer>
         <ul class="actions">
-            <li><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" class="button big">Continue Reading</a></li>
+            <li><a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/" class="button big">Continue Reading</a></li>
         </ul>
         <ul class="stats">
     
@@ -284,92 +260,7 @@
 
     
     
-        <li><a href='/categories/cpp'>cpp</a></li>
-    
-</ul>
-
-    </footer>
-</article>
-
-        
-            <article class="post">
-    <header>
-    <div class="title">
-        
-            <h2><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></h2>
-        
-        
-            <p>好大一个坑</p>
-        
-    </div>
-    <div class="meta">
-        
-            
-        
-
-        <time class="published"
-            datetime='2016-05-10 19:57:15'>
-            2016-05-10 19:57:15</time>
-        <span class="author"></span>
-        
-            <p>1 MINUTE READ</p>
-        
-        
-    </div>
-</header>
-
-    
-    
-
-    
-        
-        
-
-
-
-
-    
-    
-        
-    
-
-
-        
-
-        <a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/" class="image featured">
-            <img src="/img/2016/05/pic02.jpg" alt="" />
-        </a>
-    
-
-
-    <p>踩到一个大坑 这几天在做我们数据中间件的自动化测试工具，我选择了Lua来做testcase的脚本。前一段日子有个需求，就是windows下全部使用静态库，代码生成全部使用/MT，免得依赖VC的运行时库。 所以我在开工测试工具的时候，也想这么搞，之前lua的协程调度、唤醒功能也都实现OK了，感觉没啥问题了，于是今天开始嵌入LuaSQL来做SQL的接口，于是问题来了。 采用默认的方式编译LuaSQL，当然链接的是Lua的静态库，编译出来的是Lua可以require的Dll。然后基本的使用是没问题的，然而当执行到select语句返回的结果集后，采用内置的cursor:fetch({}, &ldquo;a&rdquo;)就崩了，因为是开源的，所以果断断点调试，发现每次执行lua_rawset就崩了。 这是相当奇怪的一个错误，于是我在程序中写了个函数，处理lua传入的table参数，再次执行rawset，毫无问题。但是在LuaSQL模块中，每次操作lua脚本传入的table，执行rawset，必挂。于是我基本一下午都掉进这个坑里了。 网上貌似也有遇到这个情况的，但是他绕过了，采用了fetch()传空参数的方法来返回每列的结果。这没有从根本上解决问题，于是发现每次执行到某个指针变量和某个全局的静态变量比较的时候，比较出了问题，于是下面的逻辑就乱了，也就崩溃了。 一个劲儿的调试也不是出路。于是仔细思考了下，突然发现程序是静态链接的lua，而luasql也是静态链接的lua，而exe模块和dll模块最大的忌讳就是共享全局变量！因为exe中会有一份静态链接库的代码导入，而dll也会有，这就造成了exe和dll都有一份代码拷贝，而在exe中执行的lua函数均是exe模块里面的，而dll中则是dll模块中的lua模块，然而我exe中执行的脚本生成的table，放到了dll模块中的lua模块进行操作，很有可能会出现问题。 所以必须记住，对于dll和exe共享的模块，尽量动态链接，这样exe和dll执行后都会引用到对应的dll模块，不会产生多份代码拷贝，因为dll载入后有自己的内存空间等，和exe模块其实不属于一个模块。同时还有个题外话，就是dll中malloc/new出来的指针，必须在dll中导出对应的函数进行free/delete，这也是exe和dll中c库在执行释放操作的时候，由于模块不同，会导致无法释放对应指针，当然假如使用的是/MD选项的话，则不存在这个问题。 有朋友总结了一句话 一个模块一个堆，一个线程一个栈。 dll里malloc的内存，在exe里free会出错。 总之，上述的问题，也是不同模块不同的代码副本造成的，不同模块引用了不同的全局变量，当然会出错啦。</p>
-
-    <footer>
-        <ul class="actions">
-            <li><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/" class="button big">Continue Reading</a></li>
-        </ul>
-        <ul class="stats">
-    
-        
-
-        
-        
-            <li>
-                
-                
-                    
-
-                    
-                        Category
-                    
-                
-            </li>
-        
-    
-
-    
-    
-        <li><a href='/categories/cpp'>cpp</a></li>
+        <li><a href='/categories/go'>Go</a></li>
     
 </ul>
 
@@ -409,7 +300,7 @@
             
             <ul class="icons">
                 
-                    <li><a href="http://gocode.cc/categories/cpp/index.xml" type="application/rss+xml"
+                    <li><a href="http://gocode.cc/categories/go/index.xml" type="application/rss+xml"
                         target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
@@ -560,7 +451,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/">生活点滴</a>
+                                <a href="/categories/go/">Go</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
@@ -569,7 +460,7 @@
                     <li>
                         <article>
                             <header>
-                                <a href="/categories/go/">Go</a>
+                                <a href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/">生活点滴</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
@@ -595,7 +486,7 @@
         <section id="footer">
             <ul class="icons">
                 
-                    <li><a href="http://gocode.cc/categories/cpp/index.xml" type="application/rss+xml"
+                    <li><a href="http://gocode.cc/categories/go/index.xml" type="application/rss+xml"
                         target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
