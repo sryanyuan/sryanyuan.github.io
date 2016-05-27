@@ -36,7 +36,7 @@
 <meta property="og:url" content="http://gocode.cc/blog/" />
 
 
-<meta property="og:updated_time" content="2016-05-10T19:57:15&#43;08:00"/>
+<meta property="og:updated_time" content="2016-05-27T15:52:05&#43;08:00"/>
 
 
 
@@ -188,11 +188,11 @@
 
                 
                     <li>
-                        <a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/"><p>Dll链接静态库的坑(LuaSQL fetch崩溃)</p></a>
+                        <a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/"><p>将__LINE__宏格式化成字符串常量类型</p></a>
                     </li>
                 
                     <li>
-                        <a href="http://gocode.cc/blog/my-first-blog/"><p>在这儿的第一篇博文，安家啦</p></a>
+                        <a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/"><p>Dll链接静态库的坑(LuaSQL fetch崩溃)</p></a>
                     </li>
                 
             </ul>
@@ -208,6 +208,91 @@
         
             
         
+
+        
+            <article class="post">
+    <header>
+    <div class="title">
+        
+            <h2><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/">将__LINE__宏格式化成字符串常量类型</a></h2>
+        
+        
+            <p>宏的使用</p>
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2016-05-27 15:52:05'>
+            2016-05-27 15:52:05</time>
+        <span class="author"></span>
+        
+            <p>1 MINUTE READ</p>
+        
+        
+    </div>
+</header>
+
+    
+    
+
+    
+        
+        
+
+
+
+
+    
+    
+        
+    
+
+
+        
+
+        <a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" class="image featured">
+            <img src="/img/2016/05/" alt="" />
+        </a>
+    
+
+
+    <p>##使用宏的方式来格式化行号 我们已经知道，我们可以使用 <strong>LINE</strong> 获得当前的行号 <strong>FILE</strong> 获得当前的文件名 <strong>FUNCTION</strong> 获得当前的函数名 这些在打印日志的时候十分常用，所以在打印日志的时候我们常常需要序列化这些东西，然而序列化这些信息，特别是行号是整型，是有点儿消耗的。 今天偶然发现了将行号直接格式化成字符串常量的方法，下面贴代码。 #define STRINGIFY(x) #x #define TOSTRING(x) STRINGIFY(x) #define <strong>LINESTR</strong> TOSTRING(<strong>LINE</strong>) 使用这些代码即可将行号格式化成字符串。为了更好的使用，我们可以格式化更加复杂的信息，将文件行号和函数一起格式化成常量。（vc支持，gcc编译器不支持） #define <strong>WHERE</strong> <strong>FILE</strong>&quot;:&quot;<strong>LINESTR</strong>&quot; &quot;<strong>FILE</strong> gcc编译器不支持，因为gcc在拼接字符串的时候，结果必须是已定义的常量，比如文件，行号，字符串常量等，vc没问题。这样日志获得相信文件信息只需要使用上面的宏就可以了。</p>
+
+    <footer>
+        <ul class="actions">
+            <li><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" class="button big">Continue Reading</a></li>
+        </ul>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/cpp'>cpp</a></li>
+    
+</ul>
+
+    </footer>
+</article>
 
         
             <article class="post">
@@ -287,7 +372,7 @@
 
     
     
-        <li><a href='/categories/c/c'>c/c&#43;&#43;</a></li>
+        <li><a href='/categories/cpp'>cpp</a></li>
     
 </ul>
 
@@ -496,13 +581,13 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></h3>
+                                <h3><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/">将__LINE__宏格式化成字符串常量类型</a></h3>
                                 
                                     
                                 
                                 <time class="published" datetime=
-                                    '2016-05-10'>
-                                    2016-05-10</time>
+                                    '2016-05-27'>
+                                    2016-05-27</time>
                             </header>
                         </article>
                     </li>
@@ -510,13 +595,13 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="http://gocode.cc/blog/my-first-blog/">在这儿的第一篇博文，安家啦</a></h3>
+                                <h3><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></h3>
                                 
                                     
                                 
                                 <time class="published" datetime=
-                                    '2016-05-08'>
-                                    2016-05-08</time>
+                                    '2016-05-10'>
+                                    2016-05-10</time>
                             </header>
                         </article>
                     </li>
@@ -554,8 +639,8 @@
                     <li>
                         <article>
                             <header>
-                                <a href="/categories/c/c/">c/c&#43;&#43;</a>
-                                <span style="float:right;">1</span>
+                                <a href="/categories/cpp/">cpp</a>
+                                <span style="float:right;">2</span>
                             </header>
                         </article>
                     </li>

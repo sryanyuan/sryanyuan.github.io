@@ -6,8 +6,41 @@
     <description>Recent content on Let&#39;s go code, sryan&#39;s home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 May 2016 19:57:15 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 May 2016 15:52:05 +0800</lastBuildDate>
     <atom:link href="http://gocode.cc/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>将__LINE__宏格式化成字符串常量类型</title>
+      <link>http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/</link>
+      <pubDate>Fri, 27 May 2016 15:52:05 +0800</pubDate>
+      
+      <guid>http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/</guid>
+      <description>&lt;p&gt;##使用宏的方式来格式化行号&lt;/p&gt;
+
+&lt;p&gt;我们已经知道，我们可以使用&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;__LINE__ 获得当前的行号
+__FILE__ 获得当前的文件名
+__FUNCTION__ 获得当前的函数名
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;这些在打印日志的时候十分常用，所以在打印日志的时候我们常常需要序列化这些东西，然而序列化这些信息，特别是行号是整型，是有点儿消耗的。&lt;/p&gt;
+
+&lt;p&gt;今天偶然发现了将行号直接格式化成字符串常量的方法，下面贴代码。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+#define __LINESTR__ TOSTRING(__LINE__)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使用这些代码即可将行号格式化成字符串。为了更好的使用，我们可以格式化更加复杂的信息，将文件行号和函数一起格式化成常量。（vc支持，gcc编译器不支持）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#define __WHERE__ __FILE__&amp;quot;:&amp;quot;__LINESTR__&amp;quot; &amp;quot;__FILE__
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;gcc编译器不支持，因为gcc在拼接字符串的时候，结果必须是已定义的常量，比如文件，行号，字符串常量等，vc没问题。这样日志获得相信文件信息只需要使用上面的宏就可以了。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Dll链接静态库的坑(LuaSQL fetch崩溃)</title>

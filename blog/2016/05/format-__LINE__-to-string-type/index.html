@@ -1,19 +1,11 @@
-
-
-
-    
-        
-    
-
-
-
-
 <!DOCTYPE HTML>
 
 <html>
     <head>
         
-            <title>生活点滴 Posts - Let&#39;s go code, sryan&#39;s home</title>
+            
+                <title>将__LINE__宏格式化成字符串常量类型</title>
+            
         
 
         <meta charset="utf-8" />
@@ -24,19 +16,28 @@
 
         
         
-            
-                <meta name="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
-            
+            <meta name="description" content="宏的使用">
         
 
         
-        <meta property="og:title" content="生活点滴" />
-<meta property="og:description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://gocode.cc/categories/e7949fe6b4bbe782b9e6bbb4/" />
+
+  <meta name="twitter:card" content="summary"/>
 
 
-<meta property="og:updated_time" content="2016-05-08T11:19:31&#43;08:00"/>
+
+<meta name="twitter:title" content="将__LINE__宏格式化成字符串常量类型"/>
+<meta name="twitter:description" content="宏的使用"/>
+
+
+
+        <meta property="og:title" content="将__LINE__宏格式化成字符串常量类型" />
+<meta property="og:description" content="宏的使用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" />
+
+
+<meta property="og:updated_time" content="2016-05-27T15:52:05&#43;08:00"/>
+
 
 
 
@@ -47,9 +48,16 @@
 
 
         
-<meta itemprop="name" content="生活点滴">
-<meta itemprop="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
+<meta itemprop="name" content="将__LINE__宏格式化成字符串常量类型">
+<meta itemprop="description" content="宏的使用">
 
+
+<meta itemprop="dateModified" content="2016-05-27T15:52:05&#43;08:00" />
+<meta itemprop="wordCount" content="25">
+
+
+
+<meta itemprop="keywords" content="cpp,生活点滴," />
 
         
 
@@ -83,6 +91,7 @@
         <div id="wrapper">
 
     
+    
 <header id="header">
     
         <h2><a href="/">Go code</i></a></h2>
@@ -114,6 +123,10 @@
     </nav>
     <nav class="main">
         <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
             
             <li class="search">
                 <a class="fa-search" href="#search">Search</a>
@@ -202,19 +215,73 @@
         
 </section>
 
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&text=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
     
     <div id="main">
-        <h1>生活点滴</h1>
         
         
-            <article class="post">
+        <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="http://gocode.cc/blog/my-first-blog/">在这儿的第一篇博文，安家啦</a></h2>
+            <h1><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/">将__LINE__宏格式化成字符串常量类型</a></h1>
+            
         
         
-            <p>弄了好久呢</p>
+            <p>宏的使用</p>
         
     </div>
     <div class="meta">
@@ -223,9 +290,9 @@
         
 
         <time class="published"
-            datetime='2016-05-08 11:19:31'>
-            2016-05-08 11:19:31</time>
-        <span class="author">sryanyuan</span>
+            datetime='2016-05-27 15:52:05'>
+            2016-05-27 15:52:05</time>
+        <span class="author"></span>
         
             <p>1 MINUTE READ</p>
         
@@ -233,6 +300,55 @@
     </div>
 </header>
 
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&text=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f&title=%e5%b0%86__LINE__%e5%ae%8f%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2%e5%b8%b8%e9%87%8f%e7%b1%bb%e5%9e%8b" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f05%2fformat-__LINE__-to-string-type%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
     
     
 
@@ -251,18 +367,41 @@
 
         
 
-        <a href="http://gocode.cc/blog/my-first-blog/" class="image featured">
-            <img src="/img/2016/05/pic01.jpg" alt="" />
+        <a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/" class="image featured">
+            <img src="/img/2016/05/" alt="" />
         </a>
     
 
 
-    <p>终于差不多搭好了，真是曲折。 首先自己想做一个博客，但是无奈前端知识有限，用Go写了会，放弃了。后来发现Openresty这个东西，用Lua写着貌似更加爽，可是貌似比Go还麻烦，于是又放弃了。 后来仔细想想，一个静态的博客就够了，于是找到了Gor这个生成器，搭了一个简单的网站，方便是方便，可是主题有限，感觉不好看。 其余主流的还要装Ruby之类的，感觉还是有点儿麻烦，于是还是准备找Go的静态博客生成器，于是发现了Hogo。 于是这个页面就是找了个主题改改用Hugo生成的，感觉还不错。 那么我就在这里安家啦。 还顺手买了个域名，gocode.cc，cc域名便宜呀！5年才花了100块钱 ：）</p>
+    <div id="content">
+        <p>##使用宏的方式来格式化行号</p>
+
+<p>我们已经知道，我们可以使用</p>
+
+<pre><code>__LINE__ 获得当前的行号
+__FILE__ 获得当前的文件名
+__FUNCTION__ 获得当前的函数名
+</code></pre>
+
+<p>这些在打印日志的时候十分常用，所以在打印日志的时候我们常常需要序列化这些东西，然而序列化这些信息，特别是行号是整型，是有点儿消耗的。</p>
+
+<p>今天偶然发现了将行号直接格式化成字符串常量的方法，下面贴代码。</p>
+
+<pre><code>#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
+#define __LINESTR__ TOSTRING(__LINE__)
+</code></pre>
+
+<p>使用这些代码即可将行号格式化成字符串。为了更好的使用，我们可以格式化更加复杂的信息，将文件行号和函数一起格式化成常量。（vc支持，gcc编译器不支持）</p>
+
+<pre><code>#define __WHERE__ __FILE__&quot;:&quot;__LINESTR__&quot; &quot;__FILE__
+</code></pre>
+
+<p>gcc编译器不支持，因为gcc在拼接字符串的时候，结果必须是已定义的常量，比如文件，行号，字符串常量等，vc没问题。这样日志获得相信文件信息只需要使用上面的宏就可以了。</p>
+
+    </div>
 
     <footer>
-        <ul class="actions">
-            <li><a href="http://gocode.cc/blog/my-first-blog/" class="button big">Continue Reading</a></li>
-        </ul>
         <ul class="stats">
     
         
@@ -284,26 +423,28 @@
 
     
     
-        <li><a href='/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4'>生活点滴</a></li>
+        <li><a href='/categories/cpp'>cpp</a></li>
     
 </ul>
 
     </footer>
 </article>
-
-        
-
-        
 <ul class="actions pagination">
     
-        <li><a href="#" class="disabled button big previous">Previous Page</a></li>
+        <li><a href="http://gocode.cc/blog/2016/05/lib-and-dll-link-problem/"
+                class="button big previous">Dll链接静态库的坑(LuaSQL fetch崩溃)</a></li>
     
 
-    
-        <li><a href="#" class="disabled button big next">Next Page</a></li>
     
 </ul>
 
+
+
+<article class="post">
+	<section id="comments" class="themeform">
+ <div class="ds-thread" data-thread-key="/blog/2016/05/format-__LINE__-to-string-type/" data-title="将__LINE__宏格式化成字符串常量类型" data-url="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/"></div>   <script type="text/javascript"> var duoshuoQuery = {short_name:"sryanyuan"}; (function() { var ds = document.createElement('script'); ds.type = 'text/javascript';ds.async = true; ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js'; ds.charset = 'UTF-8'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds); })(); </script>  
+</section>
+</article>
     </div>
     
 <section id="sidebar">
@@ -323,9 +464,6 @@
                 </header>
             
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
@@ -500,9 +638,6 @@
     
         <section id="footer">
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
