@@ -15,7 +15,9 @@
       <pubDate>Fri, 27 May 2016 15:52:05 +0800</pubDate>
       
       <guid>http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/</guid>
-      <description>&lt;p&gt;##使用宏的方式来格式化行号&lt;/p&gt;
+      <description>
+
+&lt;h2 id=&#34;使用宏的方式来格式化行号:684cd3e999a27e929f0e9a5c076982c3&#34;&gt;使用宏的方式来格式化行号&lt;/h2&gt;
 
 &lt;p&gt;我们已经知道，我们可以使用&lt;/p&gt;
 
