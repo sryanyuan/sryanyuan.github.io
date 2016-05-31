@@ -6,8 +6,197 @@
     <description>Recent content in Blogs on Let&#39;s go code, sryan&#39;s home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 May 2016 17:12:51 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 31 May 2016 14:43:21 +0800</lastBuildDate>
     <atom:link href="http://gocode.cc/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>自己封装的一些golang库</title>
+      <link>http://gocode.cc/blog/2016/05/my-golang-package/</link>
+      <pubDate>Tue, 31 May 2016 14:43:21 +0800</pubDate>
+      
+      <guid>http://gocode.cc/blog/2016/05/my-golang-package/</guid>
+      <description>
+
+&lt;p&gt;自己在写go代码的时候，貌似也封装了一些小东西，除了上篇文章的tcp server，还有几个小东西，这段时间也传到了github上了，很简单的小东西。&lt;/p&gt;
+
+&lt;h2 id=&#34;eventdispatcher:14baba0cc5eb318346714515cbf994ba&#34;&gt;eventdispatcher&lt;/h2&gt;
+
+&lt;p&gt;这是一个简单的事件分发器，可以注册自己的事件以及对应的处理函数到上面去，别的地方可以进行回调，典型的观察者模式，可以给代码解耦。&lt;/p&gt;
+
+&lt;h3 id=&#34;install:14baba0cc5eb318346714515cbf994ba&#34;&gt;install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;go get github.com/sryanyuan/eventdispatcher
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;用法:14baba0cc5eb318346714515cbf994ba&#34;&gt;用法&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;log&amp;quot;
+
+    &amp;quot;github.com/sryanyuan/eventdispatcher&amp;quot;
+)
+
+const (
+    kEvent_SayHello = iota
+)
+
+type SayHelloArg struct {
+    times int
+}
+
+func sayHello1(data interface{}) {
+    arg, ok := data.(*SayHelloArg)
+    if !ok {
+        return
+    }
+
+    for i := 0; i &amp;lt; arg.times; i++ {
+        log.Println(&amp;quot;hello1\n&amp;quot;)
+    }
+}
+
+func sayHello2(data interface{}) {
+    arg, ok := data.(*SayHelloArg)
+    if !ok {
+        return
+    }
+
+    for i := 0; i &amp;lt; arg.times; i++ {
+        log.Println(&amp;quot;hello2\n&amp;quot;)
+    }
+}
+
+func main() {
+    dip := eventdispatcher.NewEventDispatcher()
+    handle1 := dip.AddListener(kEvent_SayHello, sayHello1)
+    handle2 := dip.AddListener(kEvent_SayHello, sayHello2)
+    arg := SayHelloArg{
+        times: 3,
+    }
+    dip.Dispatch(kEvent_SayHello, &amp;amp;arg)
+
+    //  remove listener
+    dip.RemoveListener(handle1)
+    dip.RemoveListener(handle2)
+    dip.Dispatch(kEvent_SayHello, &amp;amp;arg)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;circle-index-pool:14baba0cc5eb318346714515cbf994ba&#34;&gt;circle index pool&lt;/h2&gt;
+
+&lt;p&gt;这是一个索引的池子，主要用于固定长度数组的索引管理使用。通俗点来讲就是假如你管理了一个最大数量为100的连接，然后你准备了大小为100的数组，然后你就可以为每个连接分配索引了，当索引不够用的时候，就代表了当前的连接数大于了100，就可以做一些处理了。&lt;/p&gt;
+
+&lt;p&gt;为什么需要这个东西呢？这样设计的话，可以让寻址更加的快，不用使用各种map，直接使用数组，当有一个索引的时候，找到这个元素的速度可是比map快不少，在有上限的服务中，这个东西还是很有用的。&lt;/p&gt;
+
+&lt;h3 id=&#34;install-1:14baba0cc5eb318346714515cbf994ba&#34;&gt;install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;go get github.com/sryanyuan/circleindexpool
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;用法-1:14baba0cc5eb318346714515cbf994ba&#34;&gt;用法&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;log&amp;quot;
+
+    &amp;quot;github.com/sryanyuan/circleindexpool&amp;quot;
+)
+
+func main() {
+    c := circleindexpool.NewCircleIndexPool(10)
+
+    //  you can get index(1 ~ 10) from the pool
+    for {
+        i := c.AllocateIndex()
+        if i == 0 {
+            break
+        }
+
+        log.Println(&amp;quot;Got index&amp;quot;, i)
+    }
+
+    //  you can free the index and use it later
+    for i := 1; i &amp;lt; 10; i += 2 {
+        c.FreeIndex(i)
+    }
+
+    log.Println(&amp;quot;After free:&amp;quot;)
+    for {
+        i := c.AllocateIndex()
+        if i == 5 {
+            break
+        }
+
+        log.Println(&amp;quot;Got index&amp;quot;, i)
+    }
+
+    //  free all index
+    for i := 1; i &amp;lt;= 10; i++ {
+        c.FreeIndex(i)
+    }
+
+    log.Println(&amp;quot;Total:&amp;quot;)
+    for {
+        i := c.AllocateIndex()
+        if i == 0 {
+            break
+        }
+
+        log.Println(&amp;quot;Got index&amp;quot;, i)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;luago:14baba0cc5eb318346714515cbf994ba&#34;&gt;luago&lt;/h2&gt;
+
+&lt;p&gt;这是一个go包装的lua引擎，封装的lua版本为lua 5.2.2。其实也没怎么封装，基本导出了lua中所有的c函数，假如熟悉lua的c api，那么使用起来也很方便。&lt;/p&gt;
+
+&lt;p&gt;当然既然要在go中使用，那么导入go函数到lua中也是必要的，我也简单的实现了go中的函数注册到lua的需求。&lt;/p&gt;
+
+&lt;h3 id=&#34;install-2:14baba0cc5eb318346714515cbf994ba&#34;&gt;install&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;go get github.com/sryanyuan/luago
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;用法-2:14baba0cc5eb318346714515cbf994ba&#34;&gt;用法&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;strconv&amp;quot;
+
+    &amp;quot;github.com/sryanyuan/luago&amp;quot;
+)
+
+func export(L luago.Lua_Handle) int {
+    //  get args from lua
+    num := int(luago.Lua_tonumber(L, -2))
+    str := luago.Lua_tostring(L, -1)
+
+    //  push value to lua
+    val := str + strconv.Itoa(num)
+    luago.Lua_pushstring(L, val)
+    return 1
+}
+
+func main() {
+    L := luago.LuaGo_newState()
+    L.OpenStdLibs()
+
+    L.LuaGo_PushGoFunction(&amp;quot;export&amp;quot;, export)
+
+    //  invoke
+    luago.LuaL_dostring(L.GetHandle(), ` 
+        local val = export(1, &amp;quot;hello luago&amp;quot;)
+        print(val)
+    `)
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>用Go写一个简单的TCP server or client 模型</title>

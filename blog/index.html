@@ -36,7 +36,7 @@
 <meta property="og:url" content="http://gocode.cc/blog/" />
 
 
-<meta property="og:updated_time" content="2016-05-27T17:12:51&#43;08:00"/>
+<meta property="og:updated_time" content="2016-05-31T14:43:21&#43;08:00"/>
 
 
 
@@ -188,11 +188,11 @@
 
                 
                     <li>
-                        <a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/"><p>用Go写一个简单的TCP server or client 模型</p></a>
+                        <a href="http://gocode.cc/blog/2016/05/my-golang-package/"><p>自己封装的一些golang库</p></a>
                     </li>
                 
                     <li>
-                        <a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/"><p>将__LINE__宏格式化成字符串常量类型</p></a>
+                        <a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/"><p>用Go写一个简单的TCP server or client 模型</p></a>
                     </li>
                 
             </ul>
@@ -208,6 +208,67 @@
         
             
         
+
+        
+            <article class="post">
+    <header>
+    <div class="title">
+        
+            <h2><a href="http://gocode.cc/blog/2016/05/my-golang-package/">自己封装的一些golang库</a></h2>
+        
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2016-05-31 14:43:21'>
+            2016-05-31 14:43:21</time>
+        <span class="author"></span>
+        
+            <p>2 MINUTE READ</p>
+        
+        
+    </div>
+</header>
+
+    
+
+    <p>自己在写go代码的时候，貌似也封装了一些小东西，除了上篇文章的tcp server，还有几个小东西，这段时间也传到了github上了，很简单的小东西。 eventdispatcher 这是一个简单的事件分发器，可以注册自己的事件以及对应的处理函数到上面去，别的地方可以进行回调，典型的观察者模式，可以给代码解耦。 install go get github.com/sryanyuan/eventdispatcher 用法 package main import ( &quot;log&quot; &quot;github.com/sryanyuan/eventdispatcher&quot; ) const ( kEvent_SayHello = iota ) type SayHelloArg struct { times int } func sayHello1(data interface{}) { arg, ok := data.(*SayHelloArg) if !ok { return } for i := 0; i &lt; arg.times; i++ { log.Println(&quot;hello1\n&quot;) } } func sayHello2(data interface{}) { arg, ok := data.(*SayHelloArg) if !ok { return } for i :=</p>
+
+    <footer>
+        <ul class="actions">
+            <li><a href="http://gocode.cc/blog/2016/05/my-golang-package/" class="button big">Continue Reading</a></li>
+        </ul>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/go'>Go</a></li>
+    
+</ul>
+
+    </footer>
+</article>
 
         
             <article class="post">
@@ -620,13 +681,13 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/">用Go写一个简单的TCP server or client 模型</a></h3>
+                                <h3><a href="http://gocode.cc/blog/2016/05/my-golang-package/">自己封装的一些golang库</a></h3>
                                 
                                     
                                 
                                 <time class="published" datetime=
-                                    '2016-05-27'>
-                                    2016-05-27</time>
+                                    '2016-05-31'>
+                                    2016-05-31</time>
                             </header>
                         </article>
                     </li>
@@ -634,7 +695,7 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="http://gocode.cc/blog/2016/05/format-__LINE__-to-string-type/">将__LINE__宏格式化成字符串常量类型</a></h3>
+                                <h3><a href="http://gocode.cc/blog/2016/05/write-a-simple-tcp-server-and-client/">用Go写一个简单的TCP server or client 模型</a></h3>
                                 
                                     
                                 
@@ -678,6 +739,15 @@
                     <li>
                         <article>
                             <header>
+                                <a href="/categories/go/">Go</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
                                 <a href="/categories/cpp/">cpp</a>
                                 <span style="float:right;">2</span>
                             </header>
@@ -688,15 +758,6 @@
                         <article>
                             <header>
                                 <a href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/">生活点滴</a>
-                                <span style="float:right;">1</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
-                                <a href="/categories/go/">Go</a>
                                 <span style="float:right;">1</span>
                             </header>
                         </article>
