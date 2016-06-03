@@ -3,8 +3,13 @@
   
   <url>
     <loc>http://gocode.cc/</loc>
-    <lastmod>2016-05-31T14:43:21+08:00</lastmod>
+    <lastmod>2016-06-03T16:23:38+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://gocode.cc/blog/2016/06/cpp-lambda-introduce/</loc>
+    <lastmod>2016-06-03T16:23:38+08:00</lastmod>
   </url>
   
   <url>

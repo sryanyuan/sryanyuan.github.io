@@ -4,7 +4,7 @@
     <head>
         
             
-                <title>Let&#39;s go code, sryan&#39;s home</title>
+                <title>初见 C&#43;&#43; lambda表达式</title>
             
         
 
@@ -22,12 +22,23 @@
         
 
         
-        <meta property="og:title" content="Let&#39;s go code, sryan&#39;s home" />
-<meta property="og:description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://gocode.cc/" />
+
+  <meta name="twitter:card" content="summary"/>
 
 
+
+<meta name="twitter:title" content="初见 C&#43;&#43; lambda表达式"/>
+<meta name="twitter:description" content="起因 今天想翻一翻有没有开源的冒险岛服务端源码，于是在github上找了找，java版本的很常见了，我以前也玩了会，还是很不错的，可惜很多任务都做不了，想回忆下童年貌似也很困难：（ 还翻到一个c&#43;&#43;版本的，随便打开一个文件看了看，有点儿傻眼，这是c&#43;&#43;写的？ namespace Vana { class PacketReader; namespace ChannelServer { class WorldServerSession final : public PacketHandler, public enable_shared&lt;WorldServerSession&gt; { NONCOPYABLE(WorldServerSession); public: WorldServerSession() = default; protected: auto handle(PacketReader &amp;reader) -&gt; Result override; auto onConnect() -&gt; void override; auto onDisconnect() -&gt; void override; }; } } 有点儿懵逼了，我开始怀疑我究竟会不会c&#43;&#43;了。当然我还是有点儿印象的，我只知道auto这个东西貌似是在c&#43;&#43;的新标准里引入的，那么-&gt;这个应该也是新标准引入的吧，可是我的第一印象却是lambda表达式，这个和lambda表达式有什么关系呢？ Lambda表达式 lambda表达式是一个很有用的东西，我在c&#43;&#43;外常用lua和golang，这两个都提供闭包支持，在写回调函数的时候非常方便。lambda就是类似于c&#43;&#43;的闭包函数，用于在函数内定义匿名回调函数。 lambda表达式的基本格式为(&lt;&gt;内的为说明 不包含该符号) [&lt;import variables&gt;](&lt;parameters&gt;)-&gt;&lt;return type&gt; import variables 闭包函数的一个重要特性就是可以获取函数外的变量，在golang和lua中是保持着长久的引用，不会因为函数退出堆栈改变而受到影响。 c&#43;&#43;则不是，引用的变量假如是引用方式引入的，那么当写lambda表达式的函数结束后，那引入的变量已经是有问题的了。 c&#43;&#43;支持值和引用方式传入变量。 当写为[]时，则为不引入任何的变量 当写为[=]时，通过值复制方式引入所有的外部自动变量(栈上变量) 当写为[&amp;]时,通过引用方式传入所有的外部自动变量 还有一个特殊的地方就是传入this的引用，按规则是除了[]之外，默认都会传入this的拷贝。 另外，还可以指定特定变量的引入方式。 int var = 0; [var]()-&gt;void{printf(&quot;%d&quot;, var);}(); 则为通过值复制的方式引入了外部变量。"/>
+
+
+
+        <meta property="og:title" content="初见 C&#43;&#43; lambda表达式" />
+<meta property="og:description" content="起因 今天想翻一翻有没有开源的冒险岛服务端源码，于是在github上找了找，java版本的很常见了，我以前也玩了会，还是很不错的，可惜很多任务都做不了，想回忆下童年貌似也很困难：（ 还翻到一个c&#43;&#43;版本的，随便打开一个文件看了看，有点儿傻眼，这是c&#43;&#43;写的？ namespace Vana { class PacketReader; namespace ChannelServer { class WorldServerSession final : public PacketHandler, public enable_shared&lt;WorldServerSession&gt; { NONCOPYABLE(WorldServerSession); public: WorldServerSession() = default; protected: auto handle(PacketReader &amp;reader) -&gt; Result override; auto onConnect() -&gt; void override; auto onDisconnect() -&gt; void override; }; } } 有点儿懵逼了，我开始怀疑我究竟会不会c&#43;&#43;了。当然我还是有点儿印象的，我只知道auto这个东西貌似是在c&#43;&#43;的新标准里引入的，那么-&gt;这个应该也是新标准引入的吧，可是我的第一印象却是lambda表达式，这个和lambda表达式有什么关系呢？ Lambda表达式 lambda表达式是一个很有用的东西，我在c&#43;&#43;外常用lua和golang，这两个都提供闭包支持，在写回调函数的时候非常方便。lambda就是类似于c&#43;&#43;的闭包函数，用于在函数内定义匿名回调函数。 lambda表达式的基本格式为(&lt;&gt;内的为说明 不包含该符号) [&lt;import variables&gt;](&lt;parameters&gt;)-&gt;&lt;return type&gt; import variables 闭包函数的一个重要特性就是可以获取函数外的变量，在golang和lua中是保持着长久的引用，不会因为函数退出堆栈改变而受到影响。 c&#43;&#43;则不是，引用的变量假如是引用方式引入的，那么当写lambda表达式的函数结束后，那引入的变量已经是有问题的了。 c&#43;&#43;支持值和引用方式传入变量。 当写为[]时，则为不引入任何的变量 当写为[=]时，通过值复制方式引入所有的外部自动变量(栈上变量) 当写为[&amp;]时,通过引用方式传入所有的外部自动变量 还有一个特殊的地方就是传入this的引用，按规则是除了[]之外，默认都会传入this的拷贝。 另外，还可以指定特定变量的引入方式。 int var = 0; [var]()-&gt;void{printf(&quot;%d&quot;, var);}(); 则为通过值复制的方式引入了外部变量。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/" />
+
+
+<meta property="og:updated_time" content="2016-06-03T16:23:38&#43;08:00"/>
 
 
 
@@ -39,9 +50,16 @@
 
 
         
-<meta itemprop="name" content="Let&#39;s go code, sryan&#39;s home">
-<meta itemprop="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
+<meta itemprop="name" content="初见 C&#43;&#43; lambda表达式">
+<meta itemprop="description" content="起因 今天想翻一翻有没有开源的冒险岛服务端源码，于是在github上找了找，java版本的很常见了，我以前也玩了会，还是很不错的，可惜很多任务都做不了，想回忆下童年貌似也很困难：（ 还翻到一个c&#43;&#43;版本的，随便打开一个文件看了看，有点儿傻眼，这是c&#43;&#43;写的？ namespace Vana { class PacketReader; namespace ChannelServer { class WorldServerSession final : public PacketHandler, public enable_shared&lt;WorldServerSession&gt; { NONCOPYABLE(WorldServerSession); public: WorldServerSession() = default; protected: auto handle(PacketReader &amp;reader) -&gt; Result override; auto onConnect() -&gt; void override; auto onDisconnect() -&gt; void override; }; } } 有点儿懵逼了，我开始怀疑我究竟会不会c&#43;&#43;了。当然我还是有点儿印象的，我只知道auto这个东西貌似是在c&#43;&#43;的新标准里引入的，那么-&gt;这个应该也是新标准引入的吧，可是我的第一印象却是lambda表达式，这个和lambda表达式有什么关系呢？ Lambda表达式 lambda表达式是一个很有用的东西，我在c&#43;&#43;外常用lua和golang，这两个都提供闭包支持，在写回调函数的时候非常方便。lambda就是类似于c&#43;&#43;的闭包函数，用于在函数内定义匿名回调函数。 lambda表达式的基本格式为(&lt;&gt;内的为说明 不包含该符号) [&lt;import variables&gt;](&lt;parameters&gt;)-&gt;&lt;return type&gt; import variables 闭包函数的一个重要特性就是可以获取函数外的变量，在golang和lua中是保持着长久的引用，不会因为函数退出堆栈改变而受到影响。 c&#43;&#43;则不是，引用的变量假如是引用方式引入的，那么当写lambda表达式的函数结束后，那引入的变量已经是有问题的了。 c&#43;&#43;支持值和引用方式传入变量。 当写为[]时，则为不引入任何的变量 当写为[=]时，通过值复制方式引入所有的外部自动变量(栈上变量) 当写为[&amp;]时,通过引用方式传入所有的外部自动变量 还有一个特殊的地方就是传入this的引用，按规则是除了[]之外，默认都会传入this的拷贝。 另外，还可以指定特定变量的引入方式。 int var = 0; [var]()-&gt;void{printf(&quot;%d&quot;, var);}(); 则为通过值复制的方式引入了外部变量。">
 
+
+<meta itemprop="dateModified" content="2016-06-03T16:23:38&#43;08:00" />
+<meta itemprop="wordCount" content="144">
+
+
+
+<meta itemprop="keywords" content="Go,cpp,生活点滴," />
 
         
 
@@ -78,7 +96,7 @@
     
 <header id="header">
     
-        <h1><a href="/">Go code</i></a></h1>
+        <h2><a href="/">Go code</i></a></h2>
     
 
     <nav class="links">
@@ -199,14 +217,70 @@
         
 </section>
 
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&text=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
     
     <div id="main">
         
-            <article class="post">
+        
+        <article class="post">
     <header>
     <div class="title">
         
-            <h2><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/">初见 C&#43;&#43; lambda表达式</a></h2>
+            <h1><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/">初见 C&#43;&#43; lambda表达式</a></h1>
+            
         
         
     </div>
@@ -421,62 +495,6 @@ func(3, &quot;hello function&quot;);
  <div class="ds-thread" data-thread-key="/blog/2016/06/cpp-lambda-introduce/" data-title="初见 C&#43;&#43; lambda表达式" data-url="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/"></div>   <script type="text/javascript"> var duoshuoQuery = {short_name:"sryanyuan"}; (function() { var ds = document.createElement('script'); ds.type = 'text/javascript';ds.async = true; ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js'; ds.charset = 'UTF-8'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds); })(); </script>  
 </section>
 </article>
-
-            <section id="share-menu">
-    <section id="social-share-nav">
-        <ul class="links">
-            <header>
-                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
-            </header>
-            
-
-
-<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&text=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f&via=" target="_blank" class="share-btn twitter">
-    <i class="fa fa-twitter"></i>
-    <p>Twitter</p>
-</a></li>
-
-
-<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn google-plus">
-    <i class="fa fa-google-plus"></i>
-    <p>Google+</p>
-</a></li>
-
-
-<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn facebook">
-    <i class="fa fa-facebook"></i>
-    <p>Facebook</p>
-</a></li>
-
-
-<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn reddit">
-    <i class="fa fa-reddit-alien"></i>
-    <p>Reddit</p>
-</a></li>
-
-
-<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn linkedin">
-    <i class="fa fa-linkedin"></i>
-    <p>LinkedIn</p>
-</a></li>
-
-
-<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f&title=%e5%88%9d%e8%a7%81%20C%2b%2b%20lambda%e8%a1%a8%e8%be%be%e5%bc%8f" target="_blank" class="share-btn stumbleupon">
-    <i class="fa fa-stumbleupon"></i>
-    <p>StumbleUpon</p>
-</a></li>
-
-
-<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fcpp-lambda-introduce%2f" target="_blank" class="share-btn email">
-    <i class="fa fa-envelope"></i>
-    <p>Email</p>
-</a></li>
-
-        </ul>
-    </section>
-</section>
-
-        
     </div>
     
 <section id="sidebar">
@@ -496,9 +514,6 @@ func(3, &quot;hello function&quot;);
                 </header>
             
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
@@ -682,9 +697,6 @@ func(3, &quot;hello function&quot;);
     
         <section id="footer">
             <ul class="icons">
-                
-                    <li><a href="http://gocode.cc/index.xml" type="application/rss+xml"
-                        target="_blank" title="RSS" class="fa fa-rss"></a></li>
                 
                 
                     
