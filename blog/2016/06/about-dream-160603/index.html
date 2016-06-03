@@ -1,0 +1,717 @@
+<!DOCTYPE HTML>
+
+<html>
+    <head>
+        
+            
+                <title>偶尔日记160603 前段日子的流水账和昨晚的梦</title>
+            
+        
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content="Hugo 0.15" />
+        
+
+
+        
+        
+            
+                <meta name="description" content="HTML5 UP theme, Future Imperfect with some extra goodies, ported by Julio Pescador. Powered by Hugo">
+            
+        
+
+        
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="偶尔日记160603 前段日子的流水账和昨晚的梦"/>
+<meta name="twitter:description" content="年后一段日子，貌似因为工作的变动，回家已经很少写代码了，游戏也很久没有更新了。 昨天闲暇时间完成了一些模块，回家后立刻动手整合上去，以前心心念，而实现又有点儿麻烦的功能算是实现了，感觉离心中的游戏貌似又近了一步吧。可是一个人始终是有心无力，这么多年的代码，有些感觉设计实在是有问题，但是考虑到目前的稳定性（连续运行2个月&#43;），假如更改整体的架构将是一个大动作，而自己精力有限，也就走一步看一步吧。 现在主要的问题是想要把更新最累的怪物逻辑改为脚本实现，服务端主要是怪物的逻辑，而客户端则是怪物的渲染，其实也是挺麻烦的一件事，但是逻辑迁移到脚本是必须要做的事情。 这个礼拜貌似也不是特别的忙，基本都鼓捣自己的东西去了，下个礼拜下个迭代开始，估计就有任务了。总体感觉就是，以前在公司，自己负责了服务端N个服务器，而在这里，很多人负责一个中间件，感觉差异挺大的。 在这里，首先是啃了libevent，然后自己在上面封装了一个库，可以无缝的替换当前服务端的网络模块，期初是因为以前的模块超线程服务器支持有问题，然而上个礼拜研究了半天，发现了问题，于是貌似是可有可无的了，因为假如未来再写什么游戏啊服务器之类的，肯定用golang做网关，后端只需要一个连接而已，iocp epoll之类的就不需要了。 然后在这里又啃下了iocp模型，以前总是感觉好难，写了一点就放弃了，现在坚持了下来，基本了解了其思想，然后自己写的SIOCPServer也传到了github上了，收货很多。 其余的，就在研究无锁的ringbuffer，这个稍有了解，再做深入。 上个礼拜周末还去参加了什么程序员白骨精交友会。怎么说呢，还以为是针对程序员的，然而办的不咋地，中途就走了。 昨晚做了个梦，居然梦到了她。其实怎么说呢，其实我已经尽量的在脑中不再想，居然还梦到了，估计是潜意识吧，天哪。。。不可能的东西这样是很痛苦的。"/>
+
+
+
+        <meta property="og:title" content="偶尔日记160603 前段日子的流水账和昨晚的梦" />
+<meta property="og:description" content="年后一段日子，貌似因为工作的变动，回家已经很少写代码了，游戏也很久没有更新了。 昨天闲暇时间完成了一些模块，回家后立刻动手整合上去，以前心心念，而实现又有点儿麻烦的功能算是实现了，感觉离心中的游戏貌似又近了一步吧。可是一个人始终是有心无力，这么多年的代码，有些感觉设计实在是有问题，但是考虑到目前的稳定性（连续运行2个月&#43;），假如更改整体的架构将是一个大动作，而自己精力有限，也就走一步看一步吧。 现在主要的问题是想要把更新最累的怪物逻辑改为脚本实现，服务端主要是怪物的逻辑，而客户端则是怪物的渲染，其实也是挺麻烦的一件事，但是逻辑迁移到脚本是必须要做的事情。 这个礼拜貌似也不是特别的忙，基本都鼓捣自己的东西去了，下个礼拜下个迭代开始，估计就有任务了。总体感觉就是，以前在公司，自己负责了服务端N个服务器，而在这里，很多人负责一个中间件，感觉差异挺大的。 在这里，首先是啃了libevent，然后自己在上面封装了一个库，可以无缝的替换当前服务端的网络模块，期初是因为以前的模块超线程服务器支持有问题，然而上个礼拜研究了半天，发现了问题，于是貌似是可有可无的了，因为假如未来再写什么游戏啊服务器之类的，肯定用golang做网关，后端只需要一个连接而已，iocp epoll之类的就不需要了。 然后在这里又啃下了iocp模型，以前总是感觉好难，写了一点就放弃了，现在坚持了下来，基本了解了其思想，然后自己写的SIOCPServer也传到了github上了，收货很多。 其余的，就在研究无锁的ringbuffer，这个稍有了解，再做深入。 上个礼拜周末还去参加了什么程序员白骨精交友会。怎么说呢，还以为是针对程序员的，然而办的不咋地，中途就走了。 昨晚做了个梦，居然梦到了她。其实怎么说呢，其实我已经尽量的在脑中不再想，居然还梦到了，估计是潜意识吧，天哪。。。不可能的东西这样是很痛苦的。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://gocode.cc/blog/2016/06/about-dream-160603/" />
+
+
+<meta property="og:updated_time" content="2016-06-03T16:01:14&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+        
+<meta itemprop="name" content="偶尔日记160603 前段日子的流水账和昨晚的梦">
+<meta itemprop="description" content="年后一段日子，貌似因为工作的变动，回家已经很少写代码了，游戏也很久没有更新了。 昨天闲暇时间完成了一些模块，回家后立刻动手整合上去，以前心心念，而实现又有点儿麻烦的功能算是实现了，感觉离心中的游戏貌似又近了一步吧。可是一个人始终是有心无力，这么多年的代码，有些感觉设计实在是有问题，但是考虑到目前的稳定性（连续运行2个月&#43;），假如更改整体的架构将是一个大动作，而自己精力有限，也就走一步看一步吧。 现在主要的问题是想要把更新最累的怪物逻辑改为脚本实现，服务端主要是怪物的逻辑，而客户端则是怪物的渲染，其实也是挺麻烦的一件事，但是逻辑迁移到脚本是必须要做的事情。 这个礼拜貌似也不是特别的忙，基本都鼓捣自己的东西去了，下个礼拜下个迭代开始，估计就有任务了。总体感觉就是，以前在公司，自己负责了服务端N个服务器，而在这里，很多人负责一个中间件，感觉差异挺大的。 在这里，首先是啃了libevent，然后自己在上面封装了一个库，可以无缝的替换当前服务端的网络模块，期初是因为以前的模块超线程服务器支持有问题，然而上个礼拜研究了半天，发现了问题，于是貌似是可有可无的了，因为假如未来再写什么游戏啊服务器之类的，肯定用golang做网关，后端只需要一个连接而已，iocp epoll之类的就不需要了。 然后在这里又啃下了iocp模型，以前总是感觉好难，写了一点就放弃了，现在坚持了下来，基本了解了其思想，然后自己写的SIOCPServer也传到了github上了，收货很多。 其余的，就在研究无锁的ringbuffer，这个稍有了解，再做深入。 上个礼拜周末还去参加了什么程序员白骨精交友会。怎么说呢，还以为是针对程序员的，然而办的不咋地，中途就走了。 昨晚做了个梦，居然梦到了她。其实怎么说呢，其实我已经尽量的在脑中不再想，居然还梦到了，估计是潜意识吧，天哪。。。不可能的东西这样是很痛苦的。">
+
+
+<meta itemprop="dateModified" content="2016-06-03T16:01:14&#43;08:00" />
+<meta itemprop="wordCount" content="10">
+
+
+
+<meta itemprop="keywords" content="Go,cpp,生活点滴," />
+
+        
+
+        
+
+        
+        
+            
+        
+
+        
+        
+
+        
+            
+                
+                    <link rel="stylesheet" href="/css/main.min.css" />
+                
+            
+        
+
+        
+        
+        
+            
+        
+    </head>
+    <body>
+
+        
+        <div id="wrapper">
+
+    
+    
+<header id="header">
+    
+        <h2><a href="/">Go code</i></a></h2>
+    
+
+    <nav class="links">
+        <ul>
+            
+                <li>
+                    <a href="/blog/">
+                        
+                            <i class="fa fa-newspaper-o">&nbsp;</i>点滴记录
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/categories/">
+                        分一下类
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="/about/">
+                        关于博主
+                    </a>
+                </li>
+            
+        </ul>
+    </nav>
+    <nav class="main">
+        <ul>
+            
+            <li id="share-nav" class="share-menu" style="display:none;">
+                <a class="fa-share-alt" href="#share-menu">Share</a>
+            </li>
+            
+            <li class="search">
+                <a class="fa-search" href="#search">Search</a>
+                <form id="search" method="get" action="//google.com/search">
+                    <input type="text" name="q" placeholder="Search" />
+                    <input type="hidden" name="q" value="site:http://gocode.cc">
+                </form>
+            </li>
+            <li class="menu">
+                <a class="fa-bars" href="#menu">Menu</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+
+<section id="menu">
+
+    
+        <section>
+            <form class="search" method="get" action="//google.com/search">
+                <input type="text" name="q" placeholder="Search" />
+                <input type="hidden" name="q" value="site:http://gocode.cc">
+            </form>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                
+                    <li>
+                        <a href="/blog/">
+                            <h3>
+                                
+                                    <i class="fa fa-newspaper-o">&nbsp;</i>
+                                
+                                点滴记录
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories/">
+                            <h3>
+                                
+                                分一下类
+                            </h3>
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/about/">
+                            <h3>
+                                
+                                关于博主
+                            </h3>
+                        </a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        <section>
+            <ul class="links">
+                <header>
+                    <h3>Recent Posts</h3>
+                </header>
+                
+                    
+                
+
+                
+                    <li>
+                        <a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/"><p>初见 C&#43;&#43; lambda表达式</p></a>
+                    </li>
+                
+                    <li>
+                        <a href="http://gocode.cc/blog/2016/06/about-dream-160603/"><p>偶尔日记160603 前段日子的流水账和昨晚的梦</p></a>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+        
+</section>
+
+    <section id="share-menu">
+    <section id="social-share-nav">
+        <ul class="links">
+            <header>
+                <h3>Share this post <i class="fa fa-smile-o"></i></h3>
+            </header>
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&text=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+</section>
+
+    
+    <div id="main">
+        
+        
+        <article class="post">
+    <header>
+    <div class="title">
+        
+            <h1><a href="http://gocode.cc/blog/2016/06/about-dream-160603/">偶尔日记160603 前段日子的流水账和昨晚的梦</a></h1>
+            
+        
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2016-06-03 16:01:14'>
+            2016-06-03 16:01:14</time>
+        <span class="author"></span>
+        
+            <p>1 MINUTE READ</p>
+        
+        
+    </div>
+</header>
+
+
+    <section id="social-share">
+        <ul class="icons">
+            
+
+
+<li><a href="//twitter.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&text=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6&via=" target="_blank" class="share-btn twitter">
+    <i class="fa fa-twitter"></i>
+    <p>Twitter</p>
+</a></li>
+
+
+<li><a href="//plus.google.com/share?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn google-plus">
+    <i class="fa fa-google-plus"></i>
+    <p>Google+</p>
+</a></li>
+
+
+<li><a href="//www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn facebook">
+    <i class="fa fa-facebook"></i>
+    <p>Facebook</p>
+</a></li>
+
+
+<li><a href="//reddit.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn reddit">
+    <i class="fa fa-reddit-alien"></i>
+    <p>Reddit</p>
+</a></li>
+
+
+<li><a href="//www.linkedin.com/shareArticle?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn linkedin">
+    <i class="fa fa-linkedin"></i>
+    <p>LinkedIn</p>
+</a></li>
+
+
+<li><a href="//www.stumbleupon.com/submit?url=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f&title=%e5%81%b6%e5%b0%94%e6%97%a5%e8%ae%b0160603%20%e5%89%8d%e6%ae%b5%e6%97%a5%e5%ad%90%e7%9a%84%e6%b5%81%e6%b0%b4%e8%b4%a6%e5%92%8c%e6%98%a8%e6%99%9a%e7%9a%84%e6%a2%a6" target="_blank" class="share-btn stumbleupon">
+    <i class="fa fa-stumbleupon"></i>
+    <p>StumbleUpon</p>
+</a></li>
+
+
+<li><a href="mailto:?subject=Check out this post by &body=http%3a%2f%2fgocode.cc%2fblog%2f2016%2f06%2fabout-dream-160603%2f" target="_blank" class="share-btn email">
+    <i class="fa fa-envelope"></i>
+    <p>Email</p>
+</a></li>
+
+        </ul>
+    </section>
+    
+
+    <div id="content">
+        <p>年后一段日子，貌似因为工作的变动，回家已经很少写代码了，游戏也很久没有更新了。</p>
+
+<p>昨天闲暇时间完成了一些模块，回家后立刻动手整合上去，以前心心念，而实现又有点儿麻烦的功能算是实现了，感觉离心中的游戏貌似又近了一步吧。可是一个人始终是有心无力，这么多年的代码，有些感觉设计实在是有问题，但是考虑到目前的稳定性（连续运行2个月+），假如更改整体的架构将是一个大动作，而自己精力有限，也就走一步看一步吧。</p>
+
+<p>现在主要的问题是想要把更新最累的怪物逻辑改为脚本实现，服务端主要是怪物的逻辑，而客户端则是怪物的渲染，其实也是挺麻烦的一件事，但是逻辑迁移到脚本是必须要做的事情。</p>
+
+<p>这个礼拜貌似也不是特别的忙，基本都鼓捣自己的东西去了，下个礼拜下个迭代开始，估计就有任务了。总体感觉就是，以前在公司，自己负责了服务端N个服务器，而在这里，很多人负责一个中间件，感觉差异挺大的。</p>
+
+<p>在这里，首先是啃了libevent，然后自己在上面封装了一个库，可以无缝的替换当前服务端的网络模块，期初是因为以前的模块超线程服务器支持有问题，然而上个礼拜研究了半天，发现了问题，于是貌似是可有可无的了，因为假如未来再写什么游戏啊服务器之类的，肯定用golang做网关，后端只需要一个连接而已，iocp epoll之类的就不需要了。</p>
+
+<p>然后在这里又啃下了iocp模型，以前总是感觉好难，写了一点就放弃了，现在坚持了下来，基本了解了其思想，然后自己写的SIOCPServer也传到了github上了，收货很多。</p>
+
+<p>其余的，就在研究无锁的ringbuffer，这个稍有了解，再做深入。</p>
+
+<p>上个礼拜周末还去参加了什么程序员白骨精交友会。怎么说呢，还以为是针对程序员的，然而办的不咋地，中途就走了。</p>
+
+<p>昨晚做了个梦，居然梦到了她。其实怎么说呢，其实我已经尽量的在脑中不再想，居然还梦到了，估计是潜意识吧，天哪。。。不可能的东西这样是很痛苦的。</p>
+
+    </div>
+
+    <footer>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4'>生活点滴</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+<ul class="actions pagination">
+    
+        <li><a href="http://gocode.cc/blog/2016/05/my-golang-package/"
+                class="button big previous">自己封装的一些golang库</a></li>
+    
+
+    
+        <li><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/"
+                class="button big next">初见 C&#43;&#43; lambda表达式</a></li>
+    
+</ul>
+
+
+
+<article class="post">
+	<section id="comments" class="themeform">
+ <div class="ds-thread" data-thread-key="/blog/2016/06/about-dream-160603/" data-title="偶尔日记160603 前段日子的流水账和昨晚的梦" data-url="http://gocode.cc/blog/2016/06/about-dream-160603/"></div>   <script type="text/javascript"> var duoshuoQuery = {short_name:"sryanyuan"}; (function() { var ds = document.createElement('script'); ds.type = 'text/javascript';ds.async = true; ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js'; ds.charset = 'UTF-8'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds); })(); </script>  
+</section>
+</article>
+    </div>
+    
+<section id="sidebar">
+
+    
+        <section id="intro">
+            
+            
+                
+                    <img src="/img/main/my.jpg" class="intro-circle" width="" alt="Hugo Future Imperfect" />
+                
+            
+            
+                <header>
+                    <h2>Go code!</h2>
+                    <p>一处思绪驿站. <i class='fa fa-hand-peace-o'></i></p>
+                </header>
+            
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/sryanyuan" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//weibo.com/2215093590" target="_blank" title="新浪微博" class="fa fa-weibo"></a></li>
+
+
+                
+            </ul>
+        </section>
+
+    
+        <section id="recent-posts">
+            <ul class="posts">
+                <header>
+                    <h3>最近的事儿</h3>
+                </header>
+                
+                    
+                
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/">初见 C&#43;&#43; lambda表达式</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2016-06-03'>
+                                    2016-06-03</time>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <h3><a href="http://gocode.cc/blog/2016/06/about-dream-160603/">偶尔日记160603 前段日子的流水账和昨晚的梦</a></h3>
+                                
+                                    
+                                
+                                <time class="published" datetime=
+                                    '2016-06-03'>
+                                    2016-06-03</time>
+                            </header>
+                        </article>
+                    </li>
+                
+
+                
+                    <li>
+                        <ul class="actions">
+                            <li><a href=
+                            
+                                /blog/
+                            
+                            class="button">...查看更多...</a></li>
+                        </ul>
+                    </li>
+                
+            </ul>
+        </section>
+
+    
+    
+    
+    
+        <section id="categories">
+            <ul class="posts">
+                <header>
+                    <h3><a href="/categories/">分一下类</a></h3>
+                </header>
+
+                
+                    
+                
+
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/cpp/">cpp</a>
+                                <span style="float:right;">3</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/">生活点滴</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/go/">Go</a>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+            </ul>
+        </section>
+    
+
+    
+        
+        <section class="blurb">
+            <h2>About</h2>
+            <p>留一丝思绪于永恒.</p>
+
+            <ul class="actions">
+                <li><a href="/about/" class="button">了 解 更 多</a></li>
+            </ul>
+        </section>
+        
+
+    
+        <section id="footer">
+            <ul class="icons">
+                
+                
+                    
+<li><a href="//github.com/sryanyuan" target="_blank" title="GitHub" class="fa fa-github"></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li><a href="//weibo.com/2215093590" target="_blank" title="新浪微博" class="fa fa-weibo"></a></li>
+
+
+                
+            </ul>
+
+            <p class="copyright">&copy; Let&#39;s go code, sryan&#39;s home. Design: <a href="http://html5up.net" target="_blank">HTML5 UP</a>. Ported by <a href="//github.com/jpescador" target="_blank">Julio Pescador</a>. Powered by <a href="//gohugo.io" target="_blank">Hugo</a></p>
+        </section>
+
+</section>
+
+            </div>
+        <a id="back-to-top" href="#" class="fa fa-arrow-up fa-border fa-2x"></a>
+        
+
+        
+        
+            
+        
+
+        
+        
+
+        
+            
+                
+                    <script src="/js/main.min.js"></script>
+                
+            
+        
+
+            
+            <script>hljs.initHighlightingOnLoad();</script>
+            
+    </body>
+</html>
+

@@ -36,7 +36,7 @@
 <meta property="og:url" content="http://gocode.cc/categories/cpp/" />
 
 
-<meta property="og:updated_time" content="2016-05-27T15:52:05&#43;08:00"/>
+<meta property="og:updated_time" content="2016-06-03T16:23:38&#43;08:00"/>
 
 
 
@@ -192,7 +192,7 @@
                     </li>
                 
                     <li>
-                        <a href="http://gocode.cc/blog/2016/05/my-golang-package/"><p>自己封装的一些golang库</p></a>
+                        <a href="http://gocode.cc/blog/2016/06/about-dream-160603/"><p>偶尔日记160603 前段日子的流水账和昨晚的梦</p></a>
                     </li>
                 
             </ul>
@@ -206,6 +206,67 @@
     <div id="main">
         <h1>Cpp</h1>
         
+        
+            <article class="post">
+    <header>
+    <div class="title">
+        
+            <h2><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/">初见 C&#43;&#43; lambda表达式</a></h2>
+        
+        
+    </div>
+    <div class="meta">
+        
+            
+        
+
+        <time class="published"
+            datetime='2016-06-03 16:23:38'>
+            2016-06-03 16:23:38</time>
+        <span class="author"></span>
+        
+            <p>1 MINUTE READ</p>
+        
+        
+    </div>
+</header>
+
+    
+
+    <p>起因 今天想翻一翻有没有开源的冒险岛服务端源码，于是在github上找了找，java版本的很常见了，我以前也玩了会，还是很不错的，可惜很多任务都做不了，想回忆下童年貌似也很困难：（ 还翻到一个c++版本的，随便打开一个文件看了看，有点儿傻眼，这是c++写的？ namespace Vana { class PacketReader; namespace ChannelServer { class WorldServerSession final : public PacketHandler, public enable_shared&lt;WorldServerSession&gt; { NONCOPYABLE(WorldServerSession); public: WorldServerSession() = default; protected: auto handle(PacketReader &amp;reader) -&gt; Result override; auto onConnect() -&gt; void override; auto onDisconnect() -&gt; void override; }; } } 有点儿懵逼了，我开始怀疑我究竟会不会c++了。当然我还是有点儿印象的，我只知道auto这个东西貌似是在c++的新标准里引入的，那么-&gt;这个应该也是新标准引入的吧，可是我的第一印象却是lambda表达式，这个和lambda表达式有什么关系呢？ Lambda表达式 lambda表达式是一个很有用的东西，我在c++外常用lua和golang，这两个都提供闭包支持，在写回调函数的时候非常方便。lambda就是类似于c++的闭包函数，用于在函数内定义匿名回调函数。 lambda表达式的基本格式为(&lt;&gt;内的为说明 不包含该符号) <a href="&amp;lt;parameters&amp;gt;">&lt;import variables&gt;</a>-&gt;&lt;return type&gt; import variables 闭包函数的一个重要特性就是可以获取函数外的变量，在golang和lua中是保持着长久的引用，不会因为函数退出堆栈改变而受到影响。 c++则不是，引用的变量假如是引用方式引入的，那么当写lambda表达式的函数结束后，那引入的变量已经是有问题的了。 c++支持值和引用方式传入变量。 当写为[]时，则为不引入任何的变量 当写为[=]时，通过值复制方式引入所有的外部自动变量(栈上变量) 当写为[&amp;]时,通过引用方式传入所有的外部自动变量 还有一个特殊的地方就是传入this的引用，按规则是除了[]之外，默认都会传入this的拷贝。 另外，还可以指定特定变量的引入方式。 int var = 0; [var]()-&gt;void{printf(&quot;%d&quot;, var);}(); 则为通过值复制的方式引入了外部变量。</p>
+
+    <footer>
+        <ul class="actions">
+            <li><a href="http://gocode.cc/blog/2016/06/cpp-lambda-introduce/" class="button big">Continue Reading</a></li>
+        </ul>
+        <ul class="stats">
+    
+        
+
+        
+        
+            <li>
+                
+                
+                    
+
+                    
+                        Category
+                    
+                
+            </li>
+        
+    
+
+    
+    
+        <li><a href='/categories/cpp'>cpp</a></li>
+    
+</ul>
+
+    </footer>
+</article>
+
         
             <article class="post">
     <header>
@@ -485,13 +546,13 @@
                     <li>
                         <article>
                             <header>
-                                <h3><a href="http://gocode.cc/blog/2016/05/my-golang-package/">自己封装的一些golang库</a></h3>
+                                <h3><a href="http://gocode.cc/blog/2016/06/about-dream-160603/">偶尔日记160603 前段日子的流水账和昨晚的梦</a></h3>
                                 
                                     
                                 
                                 <time class="published" datetime=
-                                    '2016-05-31'>
-                                    2016-05-31</time>
+                                    '2016-06-03'>
+                                    2016-06-03</time>
                             </header>
                         </article>
                     </li>
@@ -529,17 +590,8 @@
                     <li>
                         <article>
                             <header>
-                                <a href="/categories/go/">Go</a>
-                                <span style="float:right;">2</span>
-                            </header>
-                        </article>
-                    </li>
-                
-                    <li>
-                        <article>
-                            <header>
                                 <a href="/categories/cpp/">cpp</a>
-                                <span style="float:right;">2</span>
+                                <span style="float:right;">3</span>
                             </header>
                         </article>
                     </li>
@@ -548,7 +600,16 @@
                         <article>
                             <header>
                                 <a href="/categories/%E7%94%9F%E6%B4%BB%E7%82%B9%E6%BB%B4/">生活点滴</a>
-                                <span style="float:right;">1</span>
+                                <span style="float:right;">2</span>
+                            </header>
+                        </article>
+                    </li>
+                
+                    <li>
+                        <article>
+                            <header>
+                                <a href="/categories/go/">Go</a>
+                                <span style="float:right;">2</span>
                             </header>
                         </article>
                     </li>
